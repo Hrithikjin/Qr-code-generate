@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>QR Code Generator</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #f5f6fa;
+      margin: 0;
+    }
+    .container {
+      background: #fff;
+      padding: 30px 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 350px;
+    }
+    h2 {
+      margin-bottom: 20px;
+      color: #2f3640;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 12px 15px;
+      font-size: 16px;
+      border: 2px solid #dcdde1;
+      border-radius: 10px;
+      outline: none;
+      margin-bottom: 20px;
+      transition: 0.3s;
+    }
+    input[type="text"]:focus {
+      border-color: #00a8ff;
+    }
+    button {
+      background: #00a8ff;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #0097e6;
+    }
+    .qr-code {
+      margin-top: 20px;
+      display: none;
+    }
+    .qr-code img {
+      max-width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>QR Code Generator</h2>
+    <input type="text" id="qrText" placeholder="Enter text or URL" />
+    <button onclick="generateQR()">Generate QR</button>
+    <div class="qr-code" id="qrCode">
+      <img id="qrImage" src="" alt="QR Code"/>
+    </div>
+  </div>
+
+  <script>
+    function generateQR() {
+      const qrText = document.getElementById('qrText').value.trim();
+      const qrImage = document.getElementById('qrImage');
+      const qrCode = document.getElementById('qrCode');
+
+      if (!qrText) {
+        alert("Please enter text or URL!");
+        return;
+      }
+
+      qrImage.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(qrText)}`;
+      qrCode.style.display = 'block';
+    }
+  </script>
+</body>
+</html>
